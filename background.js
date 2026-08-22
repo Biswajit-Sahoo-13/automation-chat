@@ -31,12 +31,26 @@ function sendMessage(tabId, msg) {
   });
 }
 
+const lastTextByTab = {}; // tabId -> last successfully extracted text
+
+// Extract-before-resend: on failure, first try GET_LAST — if the model DID
+// answer but extraction raced (slow DOM), accept the new text instead of
+// typing the prompt a second time into the chat.
 async function sendAndWait(tabId, prompt, timeoutMs, label, report) {
   const attempts = 2;
   for (let i = 1; i <= attempts; i++) {
     const res = await sendMessage(tabId, { type: "SEND_AND_WAIT", prompt, timeoutMs });
-    if (res.ok) return res;
+    if (res.ok) {
+      lastTextByTab[tabId] = res.text;
+      return res;
+    }
     if (i < attempts) {
+      const rescue = await sendMessage(tabId, { type: "GET_LAST" });
+      if (rescue.ok && rescue.text && rescue.text !== lastTextByTab[tabId]) {
+        report(`${label}: extraction recovered without re-sending the prompt.`);
+        lastTextByTab[tabId] = rescue.text;
+        return { ok: true, text: rescue.text };
+      }
       report(`${label} failed (${res.error}) — retrying once in 5s...`);
       await new Promise(r => setTimeout(r, 5000));
     } else {
