@@ -1,11 +1,11 @@
-# Conclave — Multi-Model Debate Extension (v0.2)
+# Conclave v1 — Standalone Extension
 
 Turns your open AI chat tabs into a debate chamber: each model gets your idea,
 critiques the others' answers for N rounds, and a judge model produces the
 final structured framework. Works with your normal logged-in free accounts
 (no API keys).
 
-## Engine features (v0.2)
+## Engine features
 
 - **Rotating adversary** — when Adversary mode is on, a different debater is
   the attacker each round, so no model settles into permanent agreement.
