@@ -1,4 +1,4 @@
-# AI Council — Multi-Model Debate Extension (v0.2)
+# Conclave — Multi-Model Debate Extension (v0.2)
 
 Turns your open AI chat tabs into a debate chamber: each model gets your idea,
 critiques the others' answers for N rounds, and a judge model produces the
@@ -33,7 +33,7 @@ final structured framework. Works with your normal logged-in free accounts
 
 ## Use
 
-1. Click the AI Council extension icon
+1. Click the Conclave extension icon
 2. Paste your idea / prompt
 3. Check the **Debaters** columns and pick one **Judge**
 4. Rounds default to 3 (hard cap). Optional: judge early-stop on agreement,
